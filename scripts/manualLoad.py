@@ -7,7 +7,7 @@ import ast
 
 # Directorio base donde se encuentran los archivos CSV y sus subdirectorios
 base_dir = 'C:/workspace/blue-attached/respaldoS3/'
-output_file = 'C:/workspace/blue-attached/consolidate/archivo_normalizado.csv'
+output_file = 'C:/workspace/blue-attached/manual-load/consolidate/archivo_normalizado.csv'
 
 # Buscar todos los archivos CSV de forma recursiva
 csv_files = glob.glob(os.path.join(base_dir, '**', '*.csv'), recursive=True)

@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import create_engine
 
 # Ruta absoluta para el archivo CSV
-file_path = "C:/workspace/blue-attached/consolidate/archivo_normalizado.csv"
+file_path = "C:/workspace/blue-attached/manual-load/consolidate/archivo_normalizado.csv"
 
 # Función para leer y procesar el archivo CSV
 def procesar_csv_con_pandas(file_path):

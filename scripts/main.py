@@ -2,7 +2,7 @@ from logistica_recepciones import procesar_csv_con_pandas
 #from logistica_recepcion_update import procesar_csv_2_con_pandas
 
 # Ruta absoluta para el archivo CSV
-file_path = "C:/workspace/blue-attached/consolidate/archivo_normalizado.csv"
+file_path = "C:/workspace/blue-attached/manual-load/consolidate/archivo_normalizado.csv"
 
 # Llama a la función para procesar el archivo logistica_recepcion CSV
 procesar_csv_con_pandas(file_path)
