@@ -5,13 +5,13 @@ import traceback  # Módulo para obtener la traza de errores
 from sqlalchemy import create_engine
 
 # Ruta absoluta para el archivo CSV
-file_path = "C:/workspace/blue-attached/manual-load/consolidate/archivo_normalizado.csv"
+file_path = "C:/workspace/blue-attached/manual-load/consolidate/consolidated_data_recep_update.csv"
 
 # Función para leer y procesar el archivo CSV
 def procesar_csv_2_con_pandas(file_path):
     try:
         # Lee el archivo CSV
-        df_update = pd.read_csv(file_path)
+        df_update = pd.read_csv(file_path, delimiter=',')
 
         # Lista de columnas a renombrar
         columnas_renombrar = {
@@ -23,7 +23,7 @@ def procesar_csv_2_con_pandas(file_path):
             'received_qty': 'total_recepcionado',
             'created_at': 'fecha_recepcion_finalizada',
             'employee_rut': 'usuario',
-            'rec_partial': 'estado_de_recepcion',
+            'details_out': 'estado_de_recepcion',
             'caja': 'caja_lpn',
             'document_nbr': 'documento_referencia'
         }
@@ -47,6 +47,9 @@ def procesar_csv_2_con_pandas(file_path):
         df_update['fecha_ejecucion'] = hoy
         df_update['fecha_ejecucion'] = pd.to_datetime(df_update['fecha_ejecucion'])
 
+        # Mostrar las primeras filas para verificar
+        print("Primeras 5 filas:\n", df_update.head())
+
         # Definir columnas deseadas
         columnas_deseadas = [
             'cliente', 'operacion', 'proveedor', 'numero_de_documento', 'sku', 'descripcion',
@@ -61,17 +64,17 @@ def procesar_csv_2_con_pandas(file_path):
         # Mostrar las primeras filas para verificar
         print("Primeras 5 filas:\n", df_update.head())
 
-        # usuario = 'logistica'
-        # contrasena = 'cargadatos'
-        # nombre_bd = 'dwh'
-        # direccion_servidor = '172.16.7.109'
-        # puerto = '5432'
-        # url_conexion = f'postgresql://{usuario}:{contrasena}@{direccion_servidor}:{puerto}/{nombre_bd}'
-        # engine = create_engine(url_conexion)
-        # nombre_tabla_append = 'logistica_recepcion_update'
-        # schema_name = 'dev'
+        usuario = 'logistica'
+        contrasena = 'cargadatos'
+        nombre_bd = 'dwh'
+        direccion_servidor = '172.16.7.109'
+        puerto = '5432'
+        url_conexion = f'postgresql://{usuario}:{contrasena}@{direccion_servidor}:{puerto}/{nombre_bd}'
+        engine = create_engine(url_conexion)
+        nombre_tabla_append = 'logistica_recepcion_update'
+        schema_name = 'dev'
 
-        # df_update.to_sql(nombre_tabla_append, con=engine, schema=schema_name, if_exists='append', index=False, method='multi')
+        df_update.to_sql(nombre_tabla_append, con=engine, schema=schema_name, if_exists='append', index=False, method='multi')
 
 
     except FileNotFoundError:
@@ -84,4 +87,4 @@ def procesar_csv_2_con_pandas(file_path):
         traceback.print_exc()  # Muestra la traza completa del error para identificar la línea exacta
 
 # Llama a la función para procesar el archivo CSV
-#procesar_csv_2_con_pandas(file_path)
+procesar_csv_2_con_pandas(file_path)
